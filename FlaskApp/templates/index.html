@@ -3,9 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>StatSnap - Game Stats Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Welcome to the Home Page!</h1>
+    <header>
+        <h1>Welcome to StatSnap!</h1>
+        <p>Your ultimate platform for tracking game statistics and improving performance.</p>
+    </header>
+    <section>
+        <h2>Features</h2>
+        <ul>
+            <li><strong>Real-time Tracking:</strong> Track your in-game stats in real-time.</li>
+            <li><strong>Performance Analytics:</strong> Analyze your game data to identify strengths and weaknesses.</li>
+            <li><strong>Community Leaderboards:</strong> Compete with other players and see where you rank.</li>
+        </ul>
+    </section>
+    <footer>
+        <a href="/profile">Go to Your Profile</a>
+    </footer>
 </body>
 </html>
