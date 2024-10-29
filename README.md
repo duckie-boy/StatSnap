@@ -28,8 +28,8 @@
      python3 -m venv venv
      ```
 
-3.  **Activate the Virtual Environment**
-   - On macOS/Linux:
+ 3.  **Activate the Virtual Environment**
+   - On macOS/Linux :
      ```bash
      source venv/bin/activate
      ```
@@ -37,7 +37,7 @@
     ```bash
     venv\Scripts\activate
     ```
-4. **Install Flask in the Virtual Environment**
+ 4. **Install Flask in the Virtual Environment**
    ```bash
    pip install flash
    ```
