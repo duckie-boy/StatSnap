@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+/*  Login Button */
+.navbar {
+    position: absolute;
+    top: 20px;
+    right: 20px; 
+    z-index: 10;
+}
+
+.login-button {
+    color: #e74c3c; 
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 2px solid #e74c3c;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+.split-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Left side styling */
+.content-left {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.content-left h1 {
+    font-size: 2.5em;
+    color: #3a3a3a; 
+    margin-bottom: 20px;
+}
+
+.content-left p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.cta-button {
+    background-color: #e74c3c; 
+    padding: 12px 25px;
+    border-radius: 25px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #c0392b; 
+}
+
+/* content on the rihgt*/
+.content-right {
+    flex: 1;
+    background: url('/static/statsnap-background.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+
+/* Dark overlay on the image #smexy */
+.content-right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+}
+
