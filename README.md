@@ -20,5 +20,5 @@
 
 First, clone this repository to your local machine:
 
-```bash 
+```bash git clone https://github.com/duckie-boy/StatSnap.git
 git clone
