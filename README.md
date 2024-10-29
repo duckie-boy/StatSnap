@@ -16,9 +16,36 @@
 
 ## Getting Started
 
-### 1. Clone the Repository
+1. **Clone the Repository**
+   - Open your terminal and clone the repository to your local machine:
+     ```bash
+     git clone < >
+     ```
 
-First, clone this repository to your local machine:
+2. **Set Up a Virtual Environment**
+   - In the project root directory, run the following command to create a virtual environment :
+     ```bash
+     python3 -m venv venv
+     ```
 
-```bash git clone <https://github.com/duckie-boy/StatSnap.git>
-git clone
+3.  **Activate the Virtual Environment**
+   - On macOS/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+  - On Windows
+    ```bash
+    venv\Scripts\activate
+    ```
+4. **Install Flask in the Virtual Environment**
+   ```bash
+   pip install flash
+   ```
+   
+## Usage
+
+1. **Start the Server**
+   - Run the following command to start the server:
+     ```bash
+     python3 app.py
+     ```
