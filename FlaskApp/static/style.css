@@ -1,31 +1,113 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: #0a1e3e; 
+    color: white;
     margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-header, section, footer {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
+
+header {
+    background-color: #142850; 
+    padding: 20px;
     text-align: center;
+    border-bottom: 2px solid #1a73e8;
 }
 
-h1 {
-    color: #1a73e8;
+header h1 {
+    font-size: 2.5em;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 a {
     color: #1a73e8;
     text-decoration: none;
-    font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+a.button,
+button {
+    background-color: #1a73e8; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.button:hover,
+button:hover {
+    background-color: #1667c2; 
+    box-shadow: 0px 4px 10px rgba(26, 115, 232, 0.3);
+}
+
+button.cancel {
+    background-color: #e63946; 
+}
+
+button.cancel:hover {
+    background-color: #d62828; 
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #1e2a45; 
+    color: white;
+    font-size: 1em;
+}
+
+textarea {
+    resize: none;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1em;
+    color: #ddd;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #142850;
+    color: white;
+    font-size: 0.9em;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }

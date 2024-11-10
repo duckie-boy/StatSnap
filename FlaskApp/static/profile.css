@@ -1,0 +1,134 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0a1e3e; 
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw; 
+    overflow: hidden; 
+}
+
+
+.profile-container {
+    background-color: #142850; 
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+}
+
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #1a73e8; 
+    margin-right: 15px;
+}
+
+.user-info h1 {
+    font-size: 1.8em;
+    margin: 0;
+    color: white;
+}
+
+.user-info p {
+    margin: 5px 0;
+    color: #ddd;
+}
+
+
+.profile-bio {
+    background-color: #1e2a45; 
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-bio h2 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.profile-bio p {
+    color: #ddd;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.career-stats h2 {
+    margin-bottom: 15px;
+    color: white;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.game-stats {
+    background-color: #1e2a45; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: left;
+}
+
+.game-stats h3 {
+    margin-bottom: 15px;
+    color: white;
+}
+
+
+.stats-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    color: #ddd;
+    font-size: 0.9em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    background-color: #1a273e; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button.button {
+    background-color: #1a73e8; 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.button:hover {
+    background-color: #1667c2; 
+}

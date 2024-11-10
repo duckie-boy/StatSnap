@@ -3,21 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - StatSnap</title>
+    <title>StatSnap Profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Your Profile</h1>
-    </header>
-    <section>
-        <p><strong>Name:</strong> Joh Doe</p>
-        <p><strong>Email:</strong> johndoe@example.com</p>
-        <p><strong>Favorite Game:</strong> StatTracker Pro</p>
-        <p><strong>Member Since:</strong> January 2023</p>
-    </section>
-    <footer>
-        <a href="/">Back to Home</a>
-    </footer>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="{{ url_for('static', filename='profile-placeholder.png') }}" alt="Profile Picture" class="profile-picture">
+            <div class="user-info">
+                <h1>Player123</h1>
+                <p>Competitive Gamer | Games Played: League of Legends, Valorant</p>
+            </div>
+        </div>
+
+        <section class="profile-bio">
+            <h2>About</h2>
+            <p>
+                Passionate about competitive gaming, teamwork, and performance improvement. Gamer since 2020.
+            </p>
+        </section>
+
+        <section class="career-stats">
+            <h2>Your Game Stats</h2>
+            <div class="stats-container">
+                <div class="game-stats">
+                    <h3>League of Legends</h3>
+                    <form class="stats-form">
+                        <div class="form-group">
+                            <label for="kills-lol">Kills:</label>
+                            <input type="number" id="kills-lol" name="kills-lol" placeholder="Enter kills" />
+                        </div>
+                        <div class="form-group">
+                            <label for="assists-lol">Assists:</label>
+                            <input type="number" id="assists-lol" name="assists-lol" placeholder="Enter assists" />
+                        </div>
+                        <div class="form-group">
+                            <label for="wins-lol">Wins:</label>
+                            <input type="number" id="wins-lol" name="wins-lol" placeholder="Enter wins" />
+                        </div>
+                        <button type="submit" class="button">Save Stats</button>
+                    </form>
+                </div>
+
+                <div class="game-stats">
+                    <h3>Valorant</h3>
+                    <form class="stats-form">
+                        <div class="form-group">
+                            <label for="kills-valorant">Kills:</label>
+                            <input type="number" id="kills-valorant" name="kills-valorant" placeholder="Enter kills" />
+                        </div>
+                        <div class="form-group">
+                            <label for="assists-valorant">Assists:</label>
+                            <input type="number" id="assists-valorant" name="assists-valorant" placeholder="Enter assists" />
+                        </div>
+                        <div class="form-group">
+                            <label for="wins-valorant">Wins:</label>
+                            <input type="number" id="wins-valorant" name="wins-valorant" placeholder="Enter wins" />
+                        </div>
+                        <button type="submit" class="button">Save Stats</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
 </html>
