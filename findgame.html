@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatSnap - Find Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<body>
+
+    <!-- Main Header -->
+    <header class="main-header d-flex justify-content-between align-items-center">
+        <div class="logo">StatSnap</div>
+        <nav class="nav-links">
+            <a href="#">Friends</a>
+            <a href="#">Groups</a>
+            <a href="#">Your Games</a>
+            <a href="#">Settings</a>
+            <a href="#" class="login-link">Logged In</a>
+        </nav>
+    </header>
+
+    <!-- Secondary Header -->
+    <div class="secondary-header d-flex justify-content-center">
+        <a href="home.html">Home</a>
+        <a href="apexlegends.html">Apex Legends</a>
+        <a href="fortnite.html">Fortnite</a>
+        <a href="cod.html">Call of Duty: BO6</a>
+        <a href="warzone.html">Warzone</a>
+        <a href="rl.html">Rocket League</a>
+        <a href="minecraft.html">Minecraft</a>
+        <a href="valorant.html">Valorant</a>
+        <a href="dota2.html">Dota 2</a>
+        <a href="findgame.html" class="active-tab">Find Game</a>
+    </div>
+
+    <!-- Content Area with Search Bar -->
+    <div class="content-area p-5">
+        <div class="container">
+            <h3 class="text-white mb-4">Find a Game</h3>
+            <div class="mb-3">
+                <input type="text" id="gameSearch" class="form-control" placeholder="Search for a game...">
+            </div>
+            <ul id="gameList" class="list-group">
+                <!-- List of games -->
+                <li class="list-group-item" data-link="apexlegends.html">Apex Legends</li>
+                <li class="list-group-item" data-link="fortnite.html">Fortnite</li>
+                <li class="list-group-item" data-link="cod.html">Call of Duty: BO6</li>
+                <li class="list-group-item" data-link="warzone.html">Warzone</li>
+                <li class="list-group-item" data-link="rl.html">Rocket League</li>
+                <li class="list-group-item" data-link="minecraft.html">Minecraft</li>
+                <li class="list-group-item" data-link="valorant.html">Valorant</li>
+                <li class="list-group-item" data-link="dota2.html">Dota 2</li>
+                <li class="list-group-item">League of Legends</li>
+                <li class="list-group-item">PUBG</li>
+                <li class="list-group-item">Overwatch</li>
+                <li class="list-group-item">Counter-Strike: GO 2</li>
+                <li class="list-group-item">Clash Royale</li>
+                <li class="list-group-item">Clash of Clans</li>
+                <li class="list-group-item">Pokemon GO</li>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Search bar that filters the gamelist based on search
+        document.getElementById('gameSearch').addEventListener('input', function () {
+            let filter = this.value.toLowerCase();
+            let gameItems = document.querySelectorAll('#gameList li');
+
+            gameItems.forEach(function (item) {
+                if (item.textContent.toLowerCase().includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Searches for game if it is avaibkle take sthem to the page if not then a message pops up saying Coming soon
+        document.getElementById('gameList').addEventListener('click', function (e) {
+            if (e.target && e.target.nodeName === 'LI') {
+                let link = e.target.getAttribute('data-link');
+                if (link) {
+                    window.location.href = link; 
+                } else {
+                    alert('Coming Soon'); 
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+.main-header {
+    background-color: #1f1f9f;
+    color: white;
+    padding: 20px;
+}
+
+.main-header .logo {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.main-header .nav-links a {
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.main-header .nav-links a:hover {
+    color: #ddd;
+}
+
+.secondary-header {
+    background-color: #0b1b75;
+    padding: 10px;
+}
+
+.secondary-header a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.secondary-header a:hover {
+    color: #ddd;
+}
+
+.login-link {
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
+}
+.content-area {
+    background-color: #2d2d2d;
+    height: calc(100vh - 130px); /* Adjust height based on header sizes */
+}
+
+.secondary-header .active-tab {
+    color: red;
+    font-weight: bold;
+}
