@@ -3,69 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StatSnap Profile</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+    <title>Profile Page - StatSnap</title>
+    <link rel="stylesheet" href="../static/profile.css">
 </head>
 <body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <img src="{{ url_for('static', filename='profile-placeholder.png') }}" alt="Profile Picture" class="profile-picture">
-            <div class="user-info">
-                <h1>Player123</h1>
-                <p>Competitive Gamer | Games Played: League of Legends, Valorant</p>
+    <div class="container">
+        <div class="profile-wrapper">
+            <!-- Left Side: Profile Card -->
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <img src="{{ url_for('static', filename='avatar-placeholder.png') }}" alt="User Avatar">
+                </div>
+                <h2>{{ user['username'] }}</h2>
+                <p class="subtitle">Gamer and Streamer</p>
+                <button class="action-button">Edit Profile Picture</button>
+            </div>
+
+            <!-- Right Side: Profile Details -->
+            <div class="details-card">
+                <h3>Edit Profile Details</h3>
+                <form method="POST" action="/profile">
+                    <!-- Name -->
+                    <div class="details-field">
+                        <label for="name">Name / Gamertag:</label>
+                        <input type="text" id="name" name="name" value="{{ user['username'] }}" required>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="details-field">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="{{ user['email'] }}" required>
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="details-field">
+                        <label for="bio">Bio:</label>
+                        <textarea id="bio" name="bio" placeholder="Tell us a little about yourself...">{{ user['bio'] }}</textarea>
+                    </div>
+
+                    <!-- Top 3 Games -->
+                    <div class="details-field">
+                        <label for="top-games">Top 3 Games:</label>
+                        <input type="text" id="game1" name="game1" value="{{ user['top_games'][0] }}">
+                        <input type="text" id="game2" name="game2" value="{{ user['top_games'][1] }}">
+                        <input type="text" id="game3" name="game3" value="{{ user['top_games'][2] }}">
+                    </div>
+
+                    <!-- Save Button -->
+                    <button type="submit" class="save-button">Save Changes</button>
+                </form>
             </div>
         </div>
-
-        <section class="profile-bio">
-            <h2>About</h2>
-            <p>
-                Passionate about competitive gaming, teamwork, and performance improvement. Gamer since 2020.
-            </p>
-        </section>
-
-        <section class="career-stats">
-            <h2>Your Game Stats</h2>
-            <div class="stats-container">
-                <div class="game-stats">
-                    <h3>League of Legends</h3>
-                    <form class="stats-form">
-                        <div class="form-group">
-                            <label for="kills-lol">Kills:</label>
-                            <input type="number" id="kills-lol" name="kills-lol" placeholder="Enter kills" />
-                        </div>
-                        <div class="form-group">
-                            <label for="assists-lol">Assists:</label>
-                            <input type="number" id="assists-lol" name="assists-lol" placeholder="Enter assists" />
-                        </div>
-                        <div class="form-group">
-                            <label for="wins-lol">Wins:</label>
-                            <input type="number" id="wins-lol" name="wins-lol" placeholder="Enter wins" />
-                        </div>
-                        <button type="submit" class="button">Save Stats</button>
-                    </form>
-                </div>
-
-                <div class="game-stats">
-                    <h3>Valorant</h3>
-                    <form class="stats-form">
-                        <div class="form-group">
-                            <label for="kills-valorant">Kills:</label>
-                            <input type="number" id="kills-valorant" name="kills-valorant" placeholder="Enter kills" />
-                        </div>
-                        <div class="form-group">
-                            <label for="assists-valorant">Assists:</label>
-                            <input type="number" id="assists-valorant" name="assists-valorant" placeholder="Enter assists" />
-                        </div>
-                        <div class="form-group">
-                            <label for="wins-valorant">Wins:</label>
-                            <input type="number" id="wins-valorant" name="wins-valorant" placeholder="Enter wins" />
-                        </div>
-                        <button type="submit" class="button">Save Stats</button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </div>
 </body>
 </html>
