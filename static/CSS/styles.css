@@ -1,0 +1,85 @@
+.main-header {
+    background-color: #1f1f9f;
+    color: white;
+    padding: 20px;
+}
+
+.main-header .logo {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.main-header .nav-links a {
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.main-header .nav-links a:hover {
+    color: #ddd;
+}
+
+.secondary-header {
+    background-color: #0b1b75;
+    padding: 10px;
+}
+
+.secondary-header a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.secondary-header a:hover {
+    color: #ddd;
+}
+
+.login-link {
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.content-area {
+    background-color: #2d2d2d; /* Dark background for the content area */
+    height: calc(100vh - 130px); /* Adjust height based on header sizes */
+    color: white; /* Default font color inside the content area */
+    padding: 20px; /* Add padding to the content */
+    box-sizing: border-box; /* Ensure padding doesn’t affect width/height */
+}
+
+.secondary-header .active-tab {
+    color: red;
+    font-weight: bold;
+}
+
+/* Leaderboard Table Styles */
+table {
+    width: 100%;
+    color: white; /* Font color for table content */
+}
+
+table th {
+    background-color: #1f1f9f; /* Header background color */
+    color: white; /* Header font color */
+    padding: 10px;
+    text-align: left;
+}
+
+table td {
+    padding: 10px;
+    text-align: left;
+}
+
+table tr:nth-child(even) {
+    background-color: #3a3a3a; /* Row background color for even rows */
+}
+
+table tr:nth-child(odd) {
+    background-color: #2d2d2d; /* Row background color for odd rows */
+}
+
+table tr:hover {
+    background-color: #444; /* Row hover effect */
+}
