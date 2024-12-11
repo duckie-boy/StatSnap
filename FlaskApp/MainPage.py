@@ -2,9 +2,12 @@ import os
 import bcrypt
 import json
 
+#import pytz
 from supabase import create_client
 from dotenv import load_dotenv
 from fasthtml.common import *
+#from fasthtml import Div, Titled, Hr, A, P, H1
+#from fasthtml.common import Request
 
 #Load environment variables
 load_dotenv()
@@ -1217,6 +1220,319 @@ def home_page():
         }
     )
 
+    # Mock leaderboard data
+    apex_mock_leaderboard = [
+        {"name": "Hal", "rank_type": "Pred", "rank_points": 15000},
+        {"name": "ItzTimmy", "rank_type": "Pred", "rank_points": 14040},
+        {"name": "Aceu", "rank_type": "Pred", "rank_points": 13500},
+        {"name": "Verhulst", "rank_type": "Pred", "rank_points": 12220},
+        {"name": "Noko", "rank_type": "Master", "rank_points": 12000},
+        {"name": "Nicewigg", "rank_type": "Master", "rank_points": 11000},
+        {"name": "HisWattson", "rank_type": "Master", "rank_points": 10000},
+        {"name": "Shroud", "rank_type": "Master", "rank_points": 10000},
+        {"name": "Sweet", "rank_type": "Diamond", "rank_points": 9000},
+        {"name": "Faide", "rank_type": "Master", "rank_points": 9000},
+        
+    ]
+
+    # Render leaderboard table
+    apex_leaderboard = Div(
+        H2("Apex Legends Ranked Leaderboard", style={"color": "white", "text-align": "center"}),
+        Table(
+            Thead(
+                Tr(
+                    Th("Player Name"),
+                    Th("Rank Type"),
+                    Th("Rank Points")  # Updated to "Rank Points"
+                )
+            ),
+            Tbody(
+                *[
+                    Tr(
+                        Td(entry["name"]),
+                        Td(entry["rank_type"]),
+                        Td(str(entry["rank_points"]))  # Updated to use "rank_points"
+                    )
+                    for entry in apex_mock_leaderboard
+                ]
+            )
+        ),
+        style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+    )
+     # Mock leaderboard data
+    fortnite_mock_leaderboard = [
+        {"name": "Tfue", "rank_type": "Unreal", "rank_points": 15000},
+        {"name": "Ron", "rank_type": "Unreal", "rank_points": 14000},
+        {"name": "Peterbot", "rank_type": "Unreal", "rank_points": 13000},
+        {"name": "Bugha", "rank_type": "Unreal", "rank_points": 12000},
+        {"name": "Viko", "rank_type": "Unreal", "rank_points": 12000},
+        {"name": "Bolts", "rank_type": "Champion", "rank_points": 11500},
+        {"name": "Flixie", "rank_type": "Champion", "rank_points": 11500},
+        {"name": "Clix", "rank_type": "Champion", "rank_points": 10000},
+        {"name": "Ninja", "rank_type": "Elite", "rank_points": 9000},
+        {"name": "LazaerBeam", "rank_type": "Elite", "rank_points": 9000},
+        
+    ]
+
+    # Render leaderboard table
+    fortnite_leaderboard = Div(
+        H2("Fortnite Ranked Leaderboard", style={"color": "white", "text-align": "center"}),
+        Table(
+            Thead(
+                Tr(
+                    Th("Player Name"),
+                    Th("Rank Type"),
+                    Th("Rank Points")  # Updated to "Rank Points"
+                )
+            ),
+            Tbody(
+                *[
+                    Tr(
+                        Td(entry["name"]),
+                        Td(entry["rank_type"]),
+                        Td(str(entry["rank_points"]))  # Updated to use "rank_points"
+                    )
+                    for entry in fortnite_mock_leaderboard
+                ]
+            )
+        ),
+        style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+    )
+
+    # Mock leaderboard data
+    cod_mock_leaderboard = [
+        {"name": "Cellium", "rank_type": "Iridescent", "rank_points": 16000},
+        {"name": "Stump", "rank_type": "Iridescent", "rank_points": 14000},
+        {"name": "Simp", "rank_type": "Iridescent", "rank_points": 13500},
+        {"name": "HyDra", "rank_type": "Iridescent", "rank_points": 13000},
+        {"name": "Jev", "rank_type": "Iridescent", "rank_points": 12000},
+        {"name": "Banks", "rank_type": "Iridescent", "rank_points": 11500},
+        {"name": "Nadeshot", "rank_type": "Crimson", "rank_points": 12500},
+        {"name": "Plats", "rank_type": "Crimson", "rank_points": 10000},
+        {"name": "Amas", "rank_type": "Crimson", "rank_points": 9500},
+        {"name": "Swagg", "rank_type": "Crimson", "rank_points": 8110},
+        
+    ]
+
+    # Render leaderboard table
+    cod_leaderboard = Div(
+        H2("Call Of Duty: Black Ops 6 Ranked Leaderboard", style={"color": "white", "text-align": "center"}),
+        Table(
+            Thead(
+                Tr(
+                    Th("Player Name"),
+                    Th("Rank Type"),
+                    Th("Rank Points")  # Updated to "Rank Points"
+                )
+            ),
+            Tbody(
+                *[
+                    Tr(
+                        Td(entry["name"]),
+                        Td(entry["rank_type"]),
+                        Td(str(entry["rank_points"]))  # Updated to use "rank_points"
+                    )
+                    for entry in cod_mock_leaderboard
+                ]
+            )
+        ),
+        style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+    )
+
+    # Mock leaderboard data
+    rl_mock_leaderboard = [
+        {"name": "Exotiik", "rank_type": "Grand Champion", "rank_points": 16000},
+        {"name": "LJ", "rank_type": "Grand Champion", "rank_points": 14000},
+        {"name": "ATOW", "rank_type": "Grand Champion", "rank_points": 13500},
+        {"name": "BeastMode", "rank_type": "Grand Champion", "rank_points": 13000},
+        {"name": "Radosin", "rank_type": "Grand Champion", "rank_points": 12000},
+        {"name": "Monkey Moon", "rank_type": "Grand Champion", "rank_points": 11500},
+        {"name": "Rise", "rank_type": "Diamond", "rank_points": 12500},
+        {"name": "Alpha54", "rank_type": "Diamond", "rank_points": 10000},
+        {"name": "Vatira", "rank_type": "Diamond", "rank_points": 9500},
+        {"name": "Zen", "rank_type": "Diamond", "rank_points": 8110},
+        
+    ]
+
+    # Render leaderboard table
+    rl_leaderboard = Div(
+        H2("Rocket League Ranked Leaderboard", style={"color": "white", "text-align": "center"}),
+        Table(
+            Thead(
+                Tr(
+                    Th("Player Name"),
+                    Th("Rank Type"),
+                    Th("Rank Points")  # Updated to "Rank Points"
+                )
+            ),
+            Tbody(
+                *[
+                    Tr(
+                        Td(entry["name"]),
+                        Td(entry["rank_type"]),
+                        Td(str(entry["rank_points"]))  # Updated to use "rank_points"
+                    )
+                    for entry in rl_mock_leaderboard
+                ]
+            )
+        ),
+        style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+    )
+
+    # Mock leaderboard data
+    valorant_mock_leaderboard = [
+        {"name": "Tenz", "rank_type": "Radiant", "rank_points": 16000},
+        {"name": "Asapas", "rank_type": "Radiant", "rank_points": 14000},
+        {"name": "Marved", "rank_type": "Radiant", "rank_points": 13500},
+        {"name": "Jinggg", "rank_type": "Radiant", "rank_points": 13000},
+        {"name": "BcJ", "rank_type": "Radiant", "rank_points": 12000},
+        {"name": "Boaster", "rank_type": "Radiant", "rank_points": 11500},
+        {"name": "Amas", "rank_type": "Radiant", "rank_points": 12500},
+        {"name": "Derke", "rank_type": "Immortal", "rank_points": 10000},
+        {"name": "Chronicle", "rank_type": "Immortal", "rank_points": 9500},
+        {"name": "Yay", "rank_type": "Immortal", "rank_points": 8110},
+        
+    ]
+
+    # Render leaderboard table
+    valorant_leaderboard = Div(
+        H2("Valorant Comp Leaderboard", style={"color": "white", "text-align": "center"}),
+        Table(
+            Thead(
+                Tr(
+                    Th("Player Name"),
+                    Th("Rank Type"),
+                    Th("Rank Points")  # Updated to "Rank Points"
+                )
+            ),
+            Tbody(
+                *[
+                    Tr(
+                        Td(entry["name"]),
+                        Td(entry["rank_type"]),
+                        Td(str(entry["rank_points"]))  # Updated to use "rank_points"
+                    )
+                    for entry in valorant_mock_leaderboard
+                ]
+            )
+        ),
+        style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+    )
+    warzone_mock_leaderboard = [
+    {"name": "Aydan", "rank_type": "Top 0.1%", "rank_points": 20000},
+    {"name": "Tommey", "rank_type": "Top 0.1%", "rank_points": 19500},
+    {"name": "Huskerrs", "rank_type": "Top 0.1%", "rank_points": 19000},
+    {"name": "ZLaner", "rank_type": "Top 1%", "rank_points": 18500},
+    {"name": "JoeWo", "rank_type": "Top 1%", "rank_points": 18000},
+    {"name": "SuperEvan", "rank_type": "Top 1%", "rank_points": 17500},
+    {"name": "Symfuhny", "rank_type": "Top 5%", "rank_points": 17000},
+    {"name": "Swagg", "rank_type": "Top 5%", "rank_points": 16500},
+    {"name": "Destroy", "rank_type": "Top 5%", "rank_points": 16000},
+    {"name": "Jukeyz", "rank_type": "Top 10%", "rank_points": 15500},
+    ]
+    warzone_leaderboard = Div(
+    H2("Warzone Ranked Leaderboard", style={"color": "white", "text-align": "center"}),
+    Table(
+        Thead(
+            Tr(
+                Th("Player Name"),
+                Th("Rank Type"),
+                Th("Rank Points")
+            )
+        ),
+        Tbody(
+            *[
+                Tr(
+                    Td(entry["name"]),
+                    Td(entry["rank_type"]),
+                    Td(str(entry["rank_points"]))
+                )
+                for entry in warzone_mock_leaderboard
+            ]
+        )
+    ),
+    style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+)
+
+
+
+    dota2_mock_leaderboard = [
+    {"name": "N0tail", "rank_type": "Divine", "rank_points": 16000},
+    {"name": "Ceb", "rank_type": "Divine", "rank_points": 15500},
+    {"name": "Miracle-", "rank_type": "Divine", "rank_points": 15000},
+    {"name": "Ana", "rank_type": "Immortal", "rank_points": 14000},
+    {"name": "Puppey", "rank_type": "Immortal", "rank_points": 13500},
+    {"name": "SumaiL", "rank_type": "Immortal", "rank_points": 13000},
+    {"name": "Arteezy", "rank_type": "Immortal", "rank_points": 12500},
+    {"name": "KuroKy", "rank_type": "Immortal", "rank_points": 12000},
+    {"name": "Topson", "rank_type": "Ancient", "rank_points": 11500},
+    {"name": "Zai", "rank_type": "Ancient", "rank_points": 11000},
+]
+
+# Render leaderboard table
+    dota2_leaderboard = Div(
+        H2("Dota 2 Ranked Leaderboard", style={"color": "white", "text-align": "center"}),
+        Table(
+            Thead(
+                Tr(
+                    Th("Player Name"),
+                    Th("Rank Type"),
+                    Th("Rank Points")  # Updated to "Rank Points"
+                )
+            ),
+            Tbody(
+                *[
+                    Tr(
+                        Td(entry["name"]),
+                        Td(entry["rank_type"]),
+                        Td(str(entry["rank_points"]))  # Updated to use "rank_points"
+                    )
+                    for entry in dota2_mock_leaderboard
+                ]
+            )
+        ),
+        style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+    )
+    minecraft_mock_leaderboard = [
+    {"name": "Illumina", "best_time": "14m 56s"},
+    {"name": "Dream", "best_time": "15m 27s"},
+    {"name": "Feinberg", "best_time": "16m 19s"},
+    {"name": "DylanD", "best_time": "16m 28s"},
+    {"name": "Brentilda", "best_time": "16m 42s"},
+    {"name": "K4yfour", "best_time": "16m 51s"},
+    {"name": "Couriway", "best_time": "17m 15s"},
+    {"name": "Nerdi", "best_time": "17m 38s"},
+    {"name": "Xole", "best_time": "17m 49s"},
+    {"name": "Cube1337x", "best_time": "18m 15s"},
+    ]
+    minecraft_leaderboard = Div(
+    H2("Minecraft Speedrun Leaderboard", style={"color": "white", "text-align": "center"}),
+    Table(
+        Thead(
+            Tr(
+                Th("Player Name"),
+                Th("Best Time")
+            )
+        ),
+        Tbody(
+            *[
+                Tr(
+                    Td(entry["name"]),
+                    Td(entry["best_time"])
+                )
+                for entry in minecraft_mock_leaderboard
+            ]
+        )
+    ),
+    style={"background-color": "#222", "padding": "20px", "border-radius": "5px", "margin-top": "20px", "color": "white"}
+)
+
+
+    
+
+    
+
+
     # Fetch current friends
     friends = get_current_friends(current_user_id)
     friend_usernames = [
@@ -1231,28 +1547,8 @@ def home_page():
             P(username, style={"color": "lightgray", "margin": "5px 0"})
             for username in friend_usernames
         ],
-        style={"background-color": "#222", "padding": "30px", "border-radius": "5px", "margin-top": "405px"}
+        style={"background-color": "#222", "padding": "30px", "border-radius": "5px", "margin-top": "25px"}
     )
-
-    # Define the navigation bar below
-    '''
-    nav_bar = Div(
-        Div(
-            A("Home", href="/home", style={"color": "red", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Apex Legends", href="/apex", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Fortnite", href="/fortnite", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Call of Duty: BO6", href="/codbo6", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Warzone", href="/warzone", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Rocket League", href="/rocketleague", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Minecraft", href="/minecraft", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Valorant", href="/valorant", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Dota 2", href="/dota2", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Find Game", href="/find-game", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            style={"display": "flex", "align-items": "center"}
-        ),
-        style={"background-color": "blue", "padding": "10px"}
-    )
-    '''
 
     style = Style("""
         body { font-family: Arial, sans-serif; background-color: #13171f; padding: 20px; }
@@ -1264,19 +1560,28 @@ def home_page():
     # Define the page content
     page_content = Div(
         top_bar,  # Include the new top bar
-        #nav_bar,  # Navigation bar below the title
-        render_nav_bar(current_page="home"),
+        render_nav_bar(current_page="home"),  # Navigation bar
         style,
         Div(
             P("Welcome to StatSnap! Use the navigation bar to explore games, manage groups, and more.",
               style={"font-size": "16px", "padding": "20px"}),  # Adjust paragraph text size
-              friend_list,  # Include the friend list here
+            apex_leaderboard,
+            fortnite_leaderboard,
+            cod_leaderboard, 
+            rl_leaderboard,
+            valorant_leaderboard,
+            dota2_leaderboard,
+            warzone_leaderboard,
+            minecraft_leaderboard,
+            friend_list  # Include the friend list here
         ),
         style={"background-color": "black", "color": "white", "height": "100vh"}
     )
 
     # Return the full page
     return title, page_content
+
+
 
 #Admin home page for StatSnap
 @rt('/admin-home', methods=["GET"])
