@@ -1,12 +1,10 @@
 import os
 import bcrypt
+import json
 
-#import pytz
 from supabase import create_client
 from dotenv import load_dotenv
 from fasthtml.common import *
-#from fasthtml import Div, Titled, Hr, A, P, H1
-#from fasthtml.common import Request
 
 #Load environment variables
 load_dotenv()
@@ -265,6 +263,7 @@ def render_admin_login_form(error: str = None, message: str = None):
         id="admin-login-container"  # Target ID for HTMX content replacement
     )
 
+#Function to display entire lists of users in StatSnap that admin can remove
 def render_admin_user_list():
     users = supabase.table("StatSnap_Login").select("*").execute().data
 
@@ -292,7 +291,6 @@ def render_admin_user_list():
         ],
         id="admin-user-list"
     )
-
 
 #JavaScript function for handling friend requests
 def add_friend_script():
@@ -537,25 +535,14 @@ def render_nav_bar(current_page):
 def Apex_render_content():
     form = Form(
         Fieldset(
-            Input(
-                type = "date",
-                name = "date",
-                required = True
-            ),
+            Input(type="hidden", name="game_name", value="Apex Legends"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
             Fieldset(
                 Legend("Did you win?"),
-                Input(
-                    type = "radio",
-                    id = "yes",
-                    name = "win-loss"
-                ),
-                Label("Yes"),
-                Input(
-                    type = "radio",
-                    id = "no",
-                    name = "win-loss"
-                ),
-                Label("No"),
+                Input(type="radio", id="yes", name="Win or loss", value="Win", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Win or loss", value="Loss", required=True),
+                Label("No", for_="no")
             ),
             Input(
                 type = "text",
@@ -593,107 +580,35 @@ def Apex_render_content():
                 placeholder = "Damage"
             ),
             Button("Submit", type = "submit")
-        )
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
-    return Div(
-        form
-    )
+    return Div(form)
 
 #Function to render the game stats form for Fortnite
 def Fortnite_render_content():
-        form = Form(
-            Fieldset(
-                Input(
-                    type = "date",
-                    name = "date",
-                    required = True
-                ),
-                Fieldset(
-                    Legend("Did you win?"),
-                    Input(
-                        type = "radio",
-                        id = "yes",
-                        name = "win-loss"
-                    ),
-                    Label("Yes"),
-                    Input(
-                        type = "radio",
-                        id = "no",
-                        name = "win-loss"
-                    ),
-                    Label("No"),
-                ),
-                Input(
-                    type = "text",
-                    name = "squadSize",
-                    placeholder = "Squad Size",
-                    required = True
-                ),
-                Input(
-                    type = "number",
-                    name = "palcement",
-                    placeholder = "Placement",
-                    required = True
-                ),
-                Input(
-                    type = "number",
-                    name = "kills",
-                    placeholder = "Kills",
-                    required = True
-                ),
-                Input(
-                    type = "number",
-                    name = "deaths",
-                    placeholder = "Deaths",
-                    required = True
-                ),
-                Input(
-                    type = "number",
-                    name = "revives",
-                    placeholder = "Revives",
-                    required = True
-                ),
-                Button("Submit", type = "submit")
-            )
-        )
-        return Div(
-            form
-        )
-
-#Function to render the game stats form for COD: BO6
-def COD_render_content():
     form = Form(
         Fieldset(
-            Input(
-                type = "date",
-                name = "date",
-                required = True
-            ),
+            Input(type="hidden", name="game_name", value="Fortnite"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
             Fieldset(
                 Legend("Did you win?"),
-                Input(
-                    type = "radio",
-                    id = "yes",
-                    name = "win-loss"
-                ),
-                Label("Yes"),
-                Input(
-                    type = "radio",
-                    id = "no",
-                    name = "win-loss"
-                ),
-                Label("No"),
+                Input(type="radio", id="yes", name="Win or loss", value="Win", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Win or loss", value="Loss", required=True),
+                Label("No", for_="no")
             ),
             Input(
                 type = "text",
-                name = "map",
-                placeholder = "Map",
+                name = "squadSize",
+                placeholder = "Squad Size",
                 required = True
             ),
             Input(
-                type = "text",
-                name = "gamemode",
-                placeholder = "Game Mode",
+                type = "number",
+                name = "palcement",
+                placeholder = "Placement",
                 required = True
             ),
             Input(
@@ -710,45 +625,55 @@ def COD_render_content():
             ),
             Input(
                 type = "number",
-                name = "score",
-                placeholder = "Score",
+                name = "revives",
+                placeholder = "Revives",
                 required = True
             ),
-            Input(
-                type = "number",
-                name = "assists",
-                placeholder = "Assists"
-            ),
             Button("Submit", type = "submit")
-        )
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
-    return Div(
-        form
+    return Div(form)
+
+#Function to render the game stats form for COD: BO6
+def COD_render_content():
+    form = Form(
+        Fieldset(
+            Input(type="hidden", name="game_name", value="Call of Duty: BO6"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
+            Fieldset(
+                Legend("Did you win?"),
+                Input(type="radio", id="yes", name="Win or loss", value="Win", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Win or loss", value="Loss", required=True),
+                Label("No", for_="no")
+            ),
+            Input(type="text", name="map", placeholder="Map", required=True),
+            Input(type="text", name="gamemode", placeholder="Game Mode", required=True),
+            Input(type="number", name="kills", placeholder="Kills", required=True),
+            Input(type="number", name="deaths", placeholder="Deaths", required=True),
+            Input(type="number", name="score", placeholder="Score", required=True),
+            Input(type="number", name="assists", placeholder="Assists"),
+            Button("Submit", type="submit")
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
+    return Div(form)
 
 #Function to render the game stats form for Warzone
 def Warzone_render_content():
     form = Form(
         Fieldset(
-            Input(
-                type = "date",
-                name = "date",
-                required = True
-            ),
+            Input(type="hidden", name="game_name", value="Call of Duty: Warzone"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
             Fieldset(
                 Legend("Did you win?"),
-                Input(
-                    type = "radio",
-                    id = "yes",
-                    name = "win-loss"
-                ),
-                Label("Yes"),
-                Input(
-                    type = "radio",
-                    id = "no",
-                    name = "win-loss"
-                ),
-                Label("No"),
+                Input(type="radio", id="yes", name="Win or loss", value="Win", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Win or loss", value="Loss", required=True),
+                Label("No", for_="no")
             ),
             Input(
                 type = "text",
@@ -787,35 +712,24 @@ def Warzone_render_content():
                 required = True
             ),
             Button("Submit", type = "submit")
-        )
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
-    return Div(
-        form
-    )
+    return Div(form)
 
 #Function to render the game stats form for Rocket League
 def RocketLeague_render_content():
     form = Form(
         Fieldset(
-            Input(
-                type = "date",
-                name = "date",
-                required = True
-            ),
+            Input(type="hidden", name="game_name", value="Rocket League"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
             Fieldset(
                 Legend("Did you win?"),
-                Input(
-                    type = "radio",
-                    id = "yes",
-                    name = "win-loss"
-                ),
-                Label("Yes"),
-                Input(
-                    type = "radio",
-                    id = "no",
-                    name = "win-loss"
-                ),
-                Label("No"),
+                Input(type="radio", id="yes", name="Win or loss", value="Win", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Win or loss", value="Loss", required=True),
+                Label("No", for_="no")
             ),
             Input(
                 type = "text",
@@ -841,21 +755,18 @@ def RocketLeague_render_content():
                 placeholder = "Assists"
             ),
             Button("Submit", type = "submit")
-        )
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
-    return Div(
-        form
-    )
+    return Div(form)
 
 #Function to render the game stats form for Minecraft
 def Minecraft_render_content():
     form = Form(
         Fieldset(
-            Input(
-                type = "date",
-                name = "date",
-                required = True
-            ),
+            Input(type="hidden", name="game_name", value="Minecraft"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
             Input(
                 type = "text",
                 name = "Category",
@@ -870,49 +781,30 @@ def Minecraft_render_content():
             ),
             Fieldset(
                 Legend("Seeded?"),
-                Input(
-                    type = "radio",
-                    id = "yes",
-                    name = "win-loss"
-                ),
-                Label("Yes"),
-                Input(
-                    type = "radio",
-                    id = "no",
-                    name = "win-loss"
-                ),
-                Label("No"),
+                Input(type="radio", id="yes", name="Seeded", value="Yes", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Seeded", value="No", required=True),
+                Label("No", for_="no")
             ),
             Button("Submit", type = "submit")
-        )
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
-    return Div(
-        form
-    )
+    return Div(form)
 
 #Function to render the game stats form for Valorant
 def Valorant_render_content():
     form = Form(
         Fieldset(
-            Input(
-                type = "date",
-                name = "date",
-                required = True
-            ),
+            Input(type="hidden", name="game_name", value="Rocket League"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
             Fieldset(
                 Legend("Did you win?"),
-                Input(
-                    type = "radio",
-                    id = "yes",
-                    name = "win-loss"
-                ),
-                Label("Yes"),
-                Input(
-                    type = "radio",
-                    id = "no",
-                    name = "win-loss"
-                ),
-                Label("No"),
+                Input(type="radio", id="yes", name="Win or loss", value="Win", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Win or loss", value="Loss", required=True),
+                Label("No", for_="no")
             ),
             Input(
                 type = "text",
@@ -957,21 +849,18 @@ def Valorant_render_content():
                 required = True
             ),
             Button("Submit", type = "submit")
-        )
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
-    return Div(
-        form
-    )
+    return Div(form)
 
 #Function to render the game stats form for Dota 2 --> HAS NOT BEEN DONE!!
 def Dota2_render_content():
     form = Form(
         Fieldset(
-            Input(
-                type = "date",
-                name = "date",
-                required = True
-            ),
+            Input(type="hidden", name="game_name", value="Minecraft"),  # Hidden field for game name
+            Input(type="date", name="date", required=True),
             Input(
                 type = "text",
                 name = "Category",
@@ -986,25 +875,17 @@ def Dota2_render_content():
             ),
             Fieldset(
                 Legend("Seeded?"),
-                Input(
-                    type = "radio",
-                    id = "yes",
-                    name = "win-loss"
-                ),
-                Label("Yes"),
-                Input(
-                    type = "radio",
-                    id = "no",
-                    name = "win-loss"
-                ),
-                Label("No"),
+                Input(type="radio", id="yes", name="Seeded", value="Yes", required=True),
+                Label("Yes", for_="yes"),
+                Input(type="radio", id="no", name="Seeded", value="No", required=True),
+                Label("No", for_="no")
             ),
             Button("Submit", type = "submit")
-        )
+        ),
+        method="POST",  # Set the form method to POST
+        action="/submit-game-stats"  # Set the form action to the backend endpoint
     )
-    return Div(
-        form
-    )
+    return Div(form)
 
 #Index page for StatSnap
 @rt('/')
@@ -1162,20 +1043,70 @@ def submit_admin_login(admin_username: str = None, admin_password: str = None):
 
 #Profile page for StatSnap
 @rt("/profile", methods=["GET", "POST"])
-def get():
+async def profile(request):
+    global current_user_id  # Assume this is set when the user logs in
+
+    # Redirect to login if not logged in
+    if current_user_id is None:
+        print("Redirecting to /login due to missing current_user_id")
+        return Redirect("/login")
+    
+    print(f"Current User ID: {current_user_id}")
+
+    # Handle POST request (form submission)
+    if request.method == "POST":
+        try:
+            form_data = await request.form()  # Retrieve submitted form data
+            print(f"Form data received: {form_data}")
+
+            # Extract form values
+            name = form_data.get("name")
+            email = form_data.get("email")
+            bio = form_data.get("bio")
+            top_game_1 = form_data.get("game1")
+            top_game_2 = form_data.get("game2")
+            top_game_3 = form_data.get("game3")
+            top_games = {"game1": top_game_1, "game2": top_game_2, "game3": top_game_3}
+
+            # Insert or update user profile in Supabase
+            response = supabase.table("UserProfile").upsert({
+                "user_id": current_user_id,
+                "name": name,
+                "email": email,
+                "bio": bio,
+                "top_games": json.dumps(top_games)  # JSON serialized
+            }, on_conflict=["user_id"]).execute()
+            print(f"Supabase response: {response}")
+
+            # Check for errors in response
+            if response.status_code != 200:
+                print(f"Error in Supabase response: {response.error_message}")
+            else:
+                print("Profile updated successfully.")
+        except Exception as e:
+            print(f"Error updating profile: {e}")
+
+    # Retrieve the user's profile data for pre-filling the form
+    user_profile = supabase.table("UserProfile").select("*").eq("user_id", current_user_id).execute().data
+    if user_profile:
+        user_profile = user_profile[0]  # Get the first record
+        print(f"User profile retrieved: {user_profile}")
+    else:
+        print("No user profile found.")
+
     # Define the top bar with title and buttons
     top_bar = Div(
         Div(
-            H1("StatSnap Home Page", style={"color": "white", "margin": "0", "font-size": "24px"}),  # Smaller title
-            style={"flex-grow": "1"}  # Take up remaining space to push buttons to the right
+            H1("StatSnap Home Page", style={"color": "white", "margin": "0", "font-size": "24px"}),
+            style={"flex-grow": "1"}
         ),
         Div(
             A("Friends", href="/friends", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
             A("Groups", href="/my-groups", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
             A("Your Games", href="/your-games", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
             A("Profile", href="/profile", style={"color": "red", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Log Out", href="/", style={"color": "white", "text-decoration": "none", "font-size": "14px"}),  # Logout button
-            style={"display": "flex", "align-items": "center"}  # Align vertically in the center
+            A("Log Out", href="/", style={"color": "white", "text-decoration": "none", "font-size": "14px"}),
+            style={"display": "flex", "align-items": "center"}
         ),
         style={
             "display": "flex",
@@ -1186,49 +1117,56 @@ def get():
         }
     )
 
-    # Define the navigation bar below
-    '''
-    nav_bar = Div(
-        Div(
-            A("Home", href="/home", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Apex Legends", href="/apex", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Fortnite", href="/fortnite", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Call of Duty: BO6", href="/codbo6", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Warzone", href="/warzone", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Rocket League", href="/rocketleague", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Minecraft", href="/minecraft", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Valorant", href="/valorant", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Dota 2", href="/dota2", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            A("Find Game", href="/find-game", style={"color": "white", "margin-right": "10px", "text-decoration": "none", "font-size": "14px"}),
-            style={"display": "flex", "align-items": "center"}
-        ),
-        style={"background-color": "blue", "padding": "10px"}
-    )
-    '''
-
     style = Style("""
         body { font-family: Arial, sans-serif; background-color: #13171f; padding: 20px; }
         .container { background-color: black; padding: 20px; margin: 0 auto; max-width: 600px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         input, textarea, button { display: block; width: 100%; margin: 10px 0; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
     """)
     title = Title("Profile Page")
-    
+
+    # Pre-fill form fields with user profile data
     form = Form(
         Label("Name:", For="name"),
-        Input(id="name", name="name", type="text", placeholder="Enter your name"),
+        Input(
+            id="name", name="name", type="text",
+            placeholder="Enter your name",
+            value=user_profile.get("name") if user_profile else ""
+        ),
         Label("Email:", For="email"),
-        Input(id="email", name="email", type="email", placeholder="Enter your email"),
+        Input(
+            id="email", name="email", type="email",
+            placeholder="Enter your email",
+            value=user_profile.get("email") if user_profile else ""
+        ),
         Label("Bio:", For="bio"),
-        Textarea(id="bio", name="bio", placeholder="Tell us about yourself"),
+        Input(
+            id="bio", name="bio",
+            placeholder="Tell us about yourself",
+            value=user_profile.get("bio") if user_profile else ""
+        ),
         Label("Top Game 1:", For="game1"),
-        Input(id="game1", name="game1", type="text", placeholder="Enter your top game"),
+        Input(
+            id="game1", name="game1", type="text",
+            placeholder="Enter your top game",
+            value=json.loads(user_profile.get("top_games") or "{}").get("game1", "") if user_profile else ""
+        ),
         Label("Top Game 2:", For="game2"),
-        Input(id="game2", name="game2", type="text", placeholder="Enter your second top game"),
+        Input(
+            id="game2", name="game2", type="text",
+            placeholder="Enter your second top game",
+            value=json.loads(user_profile.get("top_games") or "{}").get("game2", "") if user_profile else ""
+        ),
         Label("Top Game 3:", For="game3"),
-        Input(id="game3", name="game3", type="text", placeholder="Enter your third top game"),
+        Input(
+            id="game3", name="game3", type="text",
+            placeholder="Enter your third top game",
+            value=json.loads(user_profile.get("top_games") or "{}").get("game3", "") if user_profile else ""
+        ),
         Button("Save Changes", type="submit"),
+        method="POST",
     )
-    
+
+
     container = Div(
         H1("Profile Page"),
         form,
@@ -1237,17 +1175,16 @@ def get():
 
     # Define the page content
     page_content = Div(
-        top_bar,  # Include the new top bar
-        #nav_bar,  # Navigation bar below the title
+        top_bar,
         render_nav_bar(current_page="profile"),
         style,
         Container(container),
         style={"background-color": "black", "color": "white", "height": "100vh"}
     )
 
-    # Return the full page
-    return title, page_content
+    print(f"Bio from database: {user_profile.get('bio')}")
 
+    return title, page_content
 
 #Home page for StatSnap
 @rt('/home', methods=["GET"])
@@ -1278,6 +1215,23 @@ def home_page():
             "background-color": "blue",
             "padding": "10px"
         }
+    )
+
+    # Fetch current friends
+    friends = get_current_friends(current_user_id)
+    friend_usernames = [
+        supabase.table("StatSnap_Login").select("username").eq("id", friend_id).execute().data[0]["username"]
+        for friend_id in friends
+    ]
+
+    # Render friend list
+    friend_list = Div(
+        H2("Your Friends", style={"color": "white"}),
+        *[
+            P(username, style={"color": "lightgray", "margin": "5px 0"})
+            for username in friend_usernames
+        ],
+        style={"background-color": "#222", "padding": "30px", "border-radius": "5px", "margin-top": "405px"}
     )
 
     # Define the navigation bar below
@@ -1316,6 +1270,7 @@ def home_page():
         Div(
             P("Welcome to StatSnap! Use the navigation bar to explore games, manage groups, and more.",
               style={"font-size": "16px", "padding": "20px"}),  # Adjust paragraph text size
+              friend_list,  # Include the friend list here
         ),
         style={"background-color": "black", "color": "white", "height": "100vh"}
     )
@@ -1345,6 +1300,7 @@ def admin_dashboard():
         A("Sign Out", href="/")
     )
 
+#Page to display all users that can be removed from StatSnap
 @rt('/remove-user-page', methods=["GET"])
 def remove_userpage():
     return Titled(
@@ -1355,8 +1311,7 @@ def remove_userpage():
         A("Sign Out", href="/")
     )
 
-
-
+#Function page where admin can remove users from StatSnap
 @rt('/remove-user', methods=["POST"])
 def remove_user(user_id: str = None):
     if not user_id:
@@ -1379,8 +1334,7 @@ def remove_user(user_id: str = None):
         Span("User removed successfully.", style="color: green;"),
         style="margin-bottom: 10px;"
     )
-
-        
+ 
 #Friends page for StatSnap
 @rt('/friends', methods=["GET"])
 def friends_page():
@@ -1701,7 +1655,28 @@ def find_game_page():
 
     return title, top_bar, render_nav_bar(current_page="find-game"), style, page_content
 
+#Route to post & insert game stats to Supabase
+@rt('/submit-game-stats', methods=["POST"])
+async def submit_game_stats(request):
+    global current_user_id
 
+    if current_user_id is None:
+        return Redirect("/login")
+
+    form_data = await request.form()  # Retrieve submitted form data
+    game_name = form_data.get("game_name")  # Get the game name from the hidden field
+    stats = {key: form_data[key] for key in form_data if key != "game_name"}  # Exclude 'game_name'
+
+    # Save the data to Supabase
+    supabase.table("GameStats").insert({
+        "user_id": current_user_id,
+        "game_name": game_name,
+        "stats": json.dumps(stats)  # Convert the stats to JSON format
+    }).execute()
+
+    return Redirect("/your-games")  # Redirect to the "Your Games" page
+
+#Page where admin can manage current games on the navigation bar of homepage
 @rt('/manage-games', methods=["GET", "POST"])
 async def manage_games(request):
     if not admin_current_user_id:  # Ensure only logged-in admins can access
@@ -1785,6 +1760,49 @@ async def manage_games(request):
         A("Sign Out", href="/")
     )
 
+#page where user's game stats are shown
+@rt('/your-games', methods=["GET"])
+def your_games():
+    global current_user_id
+
+    if current_user_id is None:
+        return Redirect("/login")
+
+    response = supabase.table("GameStats").select("*").eq("user_id", current_user_id).execute()
+    game_stats = response.data
+
+    if not game_stats:  # Handle the case where no data is found
+        return Titled(
+            "Your Games",
+            P("No game stats found."),
+            A("Go back to home", href="/home")
+        )
+
+    def format_stats(stats):
+        # Convert JSON string to a dictionary
+        stats_dict = json.loads(stats)
+        # Display stats as a list
+        return Ul(
+            *[
+                Li(f"{key.capitalize()}: {value}") for key, value in stats_dict.items()
+            ],
+            style={"list-style-type": "none", "padding": "0", "margin": "0"}
+        )
+
+    return Titled(
+        "Your Game Stats",
+        *[
+            Div(
+                H3(f"Game: {stats['game_name']}"),
+                #P(f"Date: {stats['created_at']}"),
+                format_stats(stats["stats"]),  # Call the function to format the stats neatly
+                #P(f"Stats: {json.dumps(json.loads(stats['stats']), indent=2)}"),  # Pretty-print stats JSON
+                style={"margin-bottom": "20px", "border": "1px solid #ccc", "padding": "10px"}
+            )
+            for stats in game_stats
+        ],
+        A("Go back to home", href="/home")
+    )
 
 #Route for Apex Legends game page
 @rt('/apex', methods=["GET"])
