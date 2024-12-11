@@ -49,3 +49,6 @@
      ```bash
      python3 app.py
      ```
+
+## Site Link
+For easier testing, you can also navigate to the site directly here: **[StatSnap Site](https://statsnap.replit.app/)**
